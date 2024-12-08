@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"slices"
 	"strings"
 )
 
@@ -17,21 +18,6 @@ func findGuard(mp []string) (int, int) {
 	return -1, -1
 }
 
-func turn(mp []string, r int, c int) []string {
-	p := string(mp[r][c])
-
-	if p == ">" {
-		mp[r] = strings.Replace(mp[r], ">", "V", 1)
-	} else if p == "V" {
-		mp[r] = strings.Replace(mp[r], "V", "<", 1)
-	} else if p == "<" {
-		mp[r] = strings.Replace(mp[r], "<", "^", 1)
-	} else if p == "^" {
-		mp[r] = strings.Replace(mp[r], "^", ">", 1)
-	}
-	return mp
-}
-
 func countX(mp []string) int {
 	s := 1
 
@@ -39,6 +25,15 @@ func countX(mp []string) int {
 		s += strings.Count(v, "X")
 	}
 	return s
+}
+
+type P struct {
+	r int
+	c int
+}
+
+func rot(p P) P {
+	return P{p.c, -p.r}
 }
 
 func partOne() {
@@ -50,42 +45,23 @@ func partOne() {
 
 	r, c := findGuard(mp)
 
-	for r > 0 && r < len(mp)-1 && c > 0 && c < len(mp[0])-1 {
-		if mp[r][c] == '>' {
-			if mp[r][c+1] == '#' {
-				turn(mp, r, c)
-			} else {
-				mp[r] = mp[r][:c] + "X" + ">" + mp[r][c+2:]
-				c = c + 1
-			}
-		} else if mp[r][c] == 'V' {
-			if mp[r+1][c] == '#' {
-				turn(mp, r, c)
-			} else {
-				mp[r] = mp[r][:c] + "X" + mp[r][c+1:]
-				mp[r+1] = mp[r+1][:c] + "V" + mp[r+1][c+1:]
-				r = r + 1
-			}
-		} else if mp[r][c] == '<' {
-			if mp[r][c-1] == '#' {
-				turn(mp, r, c)
-			} else {
-				mp[r] = mp[r][:c-1] + "<" + "X" + mp[r][c+1:]
-				c = c - 1
-			}
-		} else if mp[r][c] == '^' {
-			if mp[r-1][c] == '#' {
-				turn(mp, r, c)
-			} else {
-				mp[r-1] = mp[r-1][:c] + "^" + mp[r-1][c+1:]
-				mp[r] = mp[r][:c] + "X" + mp[r][c+1:]
-				r = r - 1
-			}
-		} else {
-			fmt.Println(string(mp[r][c]))
-			panic("Invalid position")
-		}
-	}
+	p := P{-1, 0}
+	d := P{r, c}
+	h := []P{}
 
+	for within(mp, d.r, d.c) {
+		mp[d.r] = mp[d.r][:d.c] + "X" + mp[d.r][d.c+1:]
+		dest := P{d.r + p.r, d.c + p.c}
+		if mp[dest.r][dest.c] == '#' {
+			p = rot(p)
+		} else {
+			d = dest
+		}
+		if slices.Contains(h, p) {
+			c++
+			break
+		}
+		h = append(h, d)
+	}
 	fmt.Println(countX(mp))
 }
