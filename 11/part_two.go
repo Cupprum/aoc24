@@ -47,13 +47,11 @@ func partTwo() {
 		ss = append(ss, s)
 	}
 
-	ss = searchOne(44, ss)
-
 	sum := 0
 
 	mm := make(map[M]int)
 	for _, s := range ss {
-		sum += searchTwo(44, s, mm)
+		sum += searchTwo(0, s, mm)
 	}
 
 	fmt.Println(sum)
