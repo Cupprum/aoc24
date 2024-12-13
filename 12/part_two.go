@@ -12,14 +12,8 @@ func searchTwo(r int, c int, v string, m [][]string) (int, int) {
 
 	m[r][c] = strings.ToLower(m[r][c])
 
-	// for _, l := range m {
-	// 	fmt.Println(l)
-	// }
-	// fmt.Println()
-
 	if m[r-1][c] != v && m[r-1][c] != strings.ToLower(v) {
 		if (m[r][c-1] == strings.ToLower(v) && strings.ToLower(m[r-1][c-1]) != strings.ToLower(v)) && (m[r][c+1] == strings.ToLower(v) && strings.ToLower(m[r-1][c+1]) != strings.ToLower(v)) {
-			fmt.Println("Connection")
 			p -= 1
 		} else if (m[r][c-1] == strings.ToLower(v) && strings.ToLower(m[r-1][c-1]) != strings.ToLower(v)) || (m[r][c+1] == strings.ToLower(v) && strings.ToLower(m[r-1][c+1]) != strings.ToLower(v)) {
 		} else {
@@ -28,7 +22,6 @@ func searchTwo(r int, c int, v string, m [][]string) (int, int) {
 	}
 	if m[r][c+1] != v && m[r][c+1] != strings.ToLower(v) {
 		if (m[r-1][c] == strings.ToLower(v) && strings.ToLower(m[r-1][c+1]) != strings.ToLower(v)) && (m[r+1][c] == strings.ToLower(v) && strings.ToLower(m[r+1][c+1]) != strings.ToLower(v)) {
-			fmt.Println("Connection")
 			p -= 1
 		} else if (m[r-1][c] == strings.ToLower(v) && strings.ToLower(m[r-1][c+1]) != strings.ToLower(v)) || (m[r+1][c] == strings.ToLower(v) && strings.ToLower(m[r+1][c+1]) != strings.ToLower(v)) {
 		} else {
@@ -37,7 +30,6 @@ func searchTwo(r int, c int, v string, m [][]string) (int, int) {
 	}
 	if m[r+1][c] != v && m[r+1][c] != strings.ToLower(v) {
 		if (m[r][c-1] == strings.ToLower(v) && strings.ToLower(m[r+1][c-1]) != strings.ToLower(v)) && (m[r][c+1] == strings.ToLower(v) && strings.ToLower(m[r+1][c+1]) != strings.ToLower(v)) {
-			fmt.Println("Connection")
 			p -= 1
 		} else if (m[r][c-1] == strings.ToLower(v) && strings.ToLower(m[r+1][c-1]) != strings.ToLower(v)) || (m[r][c+1] == strings.ToLower(v) && strings.ToLower(m[r+1][c+1]) != strings.ToLower(v)) {
 		} else {
@@ -46,7 +38,6 @@ func searchTwo(r int, c int, v string, m [][]string) (int, int) {
 	}
 	if m[r][c-1] != v && m[r][c-1] != strings.ToLower(v) {
 		if (m[r-1][c] == strings.ToLower(v) && strings.ToLower(m[r-1][c-1]) != strings.ToLower(v)) && (m[r+1][c] == strings.ToLower(v) && strings.ToLower(m[r+1][c-1]) != strings.ToLower(v)) {
-			fmt.Println("Connection")
 			p -= 1
 		} else if (m[r-1][c] == strings.ToLower(v) && strings.ToLower(m[r-1][c-1]) != strings.ToLower(v)) || (m[r+1][c] == strings.ToLower(v) && strings.ToLower(m[r+1][c-1]) != strings.ToLower(v)) {
 		} else {
@@ -103,6 +94,4 @@ func partTwo() {
 		}
 	}
 	fmt.Println(s)
-
-	// fmt.Println(searchTwo(1, 1, "A", m))
 }
