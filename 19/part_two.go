@@ -19,7 +19,6 @@ func verifyTwo(p string, cmbs []string, hist map[string]int) int {
 				s += v
 				continue
 			}
-			s += verifyTwo(tp, cmbs, hist)
 			t := verifyTwo(tp, cmbs, hist)
 			if t > 0 {
 				hist[tp] = t
