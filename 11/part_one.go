@@ -33,7 +33,7 @@ func searchOne(l int, ss []int) []int {
 }
 
 func partOne() {
-	in := strings.Split("965842 9159 3372473 311 0 6 86213 48", " ")
+	in := strings.Split("0 1 10 99 999", " ")
 
 	ss := []int{}
 	for _, rs := range in {
